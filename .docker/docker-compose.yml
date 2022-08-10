@@ -1,0 +1,45 @@
+version: '3.7'
+
+networks:
+  web-app:
+
+services:
+  php:
+    build:
+      context: images/php-cli
+      args:
+        PHP_CLI_IMAGE: ${PHP_CLI_IMAGE?}
+        XDEBUG_VERSION: ${XDEBUG_VERSION?}
+    ports:
+    - "2222:22"
+    tty: true
+    volumes:
+      - ../app:/var/www
+      - ./images/php-cli/conf.d/:/usr/local/etc/php/conf.d/
+    networks:
+      - web-app
+
+  nginx:
+    build:
+      context: images/nginx
+    ports:
+      - "8585:80"
+    tty: true
+    volumes:
+      - ../app:/var/www
+      - ./images/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - web-app
+
+  php-fpm:
+    build:
+      args:
+        - PHP_FPM_VERSION=${PHP_FPM_VERSION?}
+        - XDEBUG_VERSION=${XDEBUG_VERSION?}
+      context: images/php-fpm
+    tty: true
+    volumes:
+      - ../app:/var/www
+    networks:
+      - web-app
+
