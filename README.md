@@ -10,7 +10,7 @@
 - select ssh and use your generated id_rsa.pub`s ssh config as keypair and container php interpreter path u found before
 - php-storm should now detect interpreter and xdebug debugger hooked with its configuration file
 - add the php extension folder following with `xdebug.so` as `Debugger extesion`. (i.e ‍`/usr/local/lib/php/extensions/no-debug-non-zts-20210902/xdebug.so`)
-- set `-dxdebug.client_host=host.docker.internal` as Configuration option, somehow php-storm override xdebug config itself so we should pass it as debug option too
+- set `-dxdebug.client_host=host.docker.internal` as Configuration option, somehow php-storm override xdebug config itself so we should pass it here as debug option
 
 
 
